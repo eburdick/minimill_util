@@ -10,14 +10,33 @@ import android.widget.TextView;
 import android.widget.EditText;
 import java.lang.Double;
 
+/*
+MainActivity is essentially the main program for the main screen of the app.  The Android
+operating system calls its onCreate method to start the activity.  The onCreate method takes
+a savedInstanceState Bundle as its only argument.  This bundle comes from the operating system
+when it calls this method, and contains any state that may have been saved the last time the
+activity was destroyed.
+*/
+
 public class MainActivity extends AppCompatActivity
 {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        /*
+        The super.onCreate call restores any saved state to the activity and sets up
+        any required linkages to the OS user interface.  This is a call
+        to the parent class, which is in the operating system's user interface layer.
+
+        The setContentView call sets up a connection to the activity's screen layout
+        resources defined in activity_main.xml (R.layout.activity_main)
+         */
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Get a reference to the layout's button.  There is only one in this app.
         Button button = (Button) findViewById(R.id.calc_button);
         /*
         Set the listener for button click.
