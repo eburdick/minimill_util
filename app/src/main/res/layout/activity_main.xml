@@ -72,7 +72,8 @@
                 android:ems="10"
                 android:id="@+id/offset_value"
                 android:layout_column="0"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                />
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -89,14 +90,16 @@
                     android:text="CW"
                     android:id="@+id/cwradiobutton"
                     android:checked="true"
-                    android:textSize="7pt" />
+                    android:textSize="7pt"
+                    android:onClick="do_calculate"/>
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="CCW"
                     android:id="@+id/ccwradiobutton"
-                    android:textSize="7pt" />
+                    android:textSize="7pt"
+                    android:onClick="do_calculate"/>
             </RadioGroup>
 
         </TableRow>
