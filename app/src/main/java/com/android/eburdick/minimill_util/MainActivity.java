@@ -103,10 +103,18 @@ public class MainActivity extends AppCompatActivity
                 }
         );
 */
-
+    //
+    //Action routine for changes requiring a new calculation.  This is any time the
+    //user changes the state of an input, including the input value or one of the
+    //radio buttons. This method is set to be the onclick method for all of the
+    //buttons, and is called by the edit listener for the input offset value.
+    //
     public void do_calculate(View v)
     {
-        //create references to our user interface objects
+        //create references to our user interface objects. The class R is defined
+        //in http://schemas.android.com/apk/res/android, which is referenced in
+        //AndroidManifest.xml. R stands for "resources" and is extended by the
+        //build process to contain information about our user interface resources.
         TextView dialTurns = (TextView)findViewById(R.id.turns_value);
         TextView dialValue = (TextView)findViewById(R.id.dial_value);
         EditText offsetValue = (EditText)findViewById(R.id.offset_value);
