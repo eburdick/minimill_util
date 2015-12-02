@@ -50,14 +50,16 @@
                     android:text="IN"
                     android:id="@+id/inchradiobutton"
                     android:checked="true"
-                    android:textSize="7pt" />
+                    android:textSize="7pt"
+                    android:onClick="do_calculate"/>
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MM"
                     android:id="@+id/mmradiobutton"
-                    android:textSize="7pt" />
+                    android:textSize="7pt"
+                    android:onClick="do_calculate"/>
             </RadioGroup>
         </TableRow>
 
@@ -71,6 +73,8 @@
                 android:inputType="numberDecimal"
                 android:ems="10"
                 android:id="@+id/offset_value"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:layout_column="0"
                 android:layout_weight="1"
                 />
@@ -151,6 +155,8 @@
                 android:layout_weight="1" />
         </TableRow>
 
+        <!--
+        commenting out the button because we do not need it anymore
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -167,6 +173,6 @@
                 android:layout_marginTop="10dp"
                 android:layout_weight="1" />
         </TableRow>
-
+        -->
     </TableLayout>
 </RelativeLayout>
