@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">minimill_util</string>
+    <string name="tableOffsetString">Table Offset</string>
+    <string name="fullTurnsString">Full Turns</string>
+    <string name="dialReadingString">Dial Reading</string>
+    <string name="inchLabel">IN</string>
+    <string name="mmLabel">MM</string>
+    <string name="counterClockwiseLabel">CCW</string>
+    <string name="clockwiseLabel">CW</string>
+    <string name="titleString">Mini Mill Utility</string>
+    <string name="offsetValueHint">enter offset...</string>
 </resources>

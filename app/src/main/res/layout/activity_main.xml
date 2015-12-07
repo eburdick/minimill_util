@@ -1,178 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
 
-    <TextView android:text="Mini Mill Utility" android:layout_width="wrap_content"
+    <TextView
+        android:text="@string/titleString"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/TitleString"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:textSize="14pt" />
 
-    <TableLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/TitleString"
+        android:text="@string/tableOffsetString"
+        android:id="@+id/offsetLabel"
+        android:textSize="30sp"/>
+
+    <RadioGroup
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:shrinkColumns="1"
+        android:orientation="horizontal"
+        android:id="@+id/inch_mm_select"
+        android:layout_toRightOf="@+id/offsetLabel"
         android:layout_below="@+id/TitleString"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentEnd="true"
+        android:gravity="right"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="false">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/inchLabel"
+            android:id="@+id/inchradiobutton"
+            android:checked="true"
+            android:textSize="@dimen/radioButtonTextSize"
+            android:onClick="do_calculate"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mmLabel"
+            android:id="@+id/mmradiobutton"
+            android:textSize="@dimen/radioButtonTextSize"
+            android:onClick="do_calculate"/>
+    </RadioGroup>
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Table Offset"
-                android:id="@+id/textView"
-                android:layout_column="0"
-                android:textSize="12pt"
-                android:layout_weight="1" />
 
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_gravity="left"
-                android:id="@+id/inch_mm_select"
-                android:layout_column="1"
-                android:layout_weight="1">
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/offset_value"
+        android:singleLine="true"
+        android:imeOptions="actionDone"
+        android:layout_below="@+id/offsetLabel"
+        android:textSize="@dimen/inputTextSize"
+        android:layout_toLeftOf="@+id/inch_mm_select"
+        android:layout_toStartOf="@+id/inch_mm_select"
+        android:hint="@string/offsetValueHint"/>
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="IN"
-                    android:id="@+id/inchradiobutton"
-                    android:checked="true"
-                    android:textSize="7pt"
-                    android:onClick="do_calculate"/>
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_gravity="left"
+        android:id="@+id/cw_ccw_select"
+        android:layout_toRightOf="@+id/offset_value"
+        android:gravity="right"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/offset_value"
+        android:layout_below="@+id/offsetLabel"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="false">
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="MM"
-                    android:id="@+id/mmradiobutton"
-                    android:textSize="7pt"
-                    android:onClick="do_calculate"/>
-            </RadioGroup>
-        </TableRow>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clockwiseLabel"
+            android:id="@+id/cwradiobutton"
+            android:checked="true"
+            android:textSize="@dimen/radioButtonTextSize"
+            android:onClick="do_calculate"
+            android:layout_gravity="bottom"/>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/counterClockwiseLabel"
+            android:id="@+id/ccwradiobutton"
+            android:textSize="@dimen/radioButtonTextSize"
+            android:onClick="do_calculate"
+            android:layout_gravity="bottom"/>
+    </RadioGroup>
 
-            <EditText
-                android:layout_width="190dp"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:ems="10"
-                android:id="@+id/offset_value"
-                android:singleLine="true"
-                android:imeOptions="actionDone"
-                android:layout_column="0"
-                android:layout_weight="1"
-                />
 
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_gravity="left"
-                android:id="@+id/cw_ccw_select"
-                android:layout_column="1"
-                android:layout_weight="1">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fullTurnsString"
+        android:id="@+id/turns_label"
+        android:textSize="12pt"
+        android:layout_below="@+id/offset_value"/>
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CW"
-                    android:id="@+id/cwradiobutton"
-                    android:checked="true"
-                    android:textSize="7pt"
-                    android:onClick="do_calculate"/>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/turns_value"
+        android:gravity="bottom|right"
+        android:textSize="@dimen/resultTextSize"
+        android:layout_toRightOf="@+id/turns_label"
+        android:layout_below="@+id/offset_value"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="30dp"
+        android:layout_alignBottom="@+id/turns_label"
+        android:layout_alignParentRight="true"/>
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CCW"
-                    android:id="@+id/ccwradiobutton"
-                    android:textSize="7pt"
-                    android:onClick="do_calculate"/>
-            </RadioGroup>
 
-        </TableRow>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dialReadingString"
+        android:id="@+id/dial_label"
+        android:textSize="12pt"
+        android:layout_below="@+id/turns_label"/>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/dial_value"
+        android:textSize="@dimen/resultTextSize"
+        android:layout_below="@+id/turns_label"
+        android:layout_toRightOf="@+id/dial_label"
+        android:layout_marginLeft="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/dial_label"
+        android:layout_alignTop="@+id/dial_label"
+        android:gravity="bottom|right"
+        android:layout_alignParentRight="true"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Full Turns"
-                android:id="@+id/turns_label"
-                android:layout_column="0"
-                android:textSize="12pt"
-                android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/turns_value"
-                android:layout_column="1"
-                android:textSize="12pt"
-                android:background="#c5e8e3"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1" />
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dial Reading"
-                android:id="@+id/dial_label"
-                android:layout_column="0"
-                android:textSize="12pt"
-                android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/dial_value"
-                android:layout_column="1"
-                android:textSize="12pt"
-                android:background="#c5e8e3"
-                android:layout_weight="1" />
-        </TableRow>
-
-        <!--
-        commenting out the button because we do not need it anymore
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Calculate"
-                android:id="@+id/calc_button"
-                android:layout_column="0"
-                android:onClick="do_calculate"
-                android:layout_span="2"
-                android:textSize="10pt"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1" />
-        </TableRow>
-        -->
-    </TableLayout>
 </RelativeLayout>
