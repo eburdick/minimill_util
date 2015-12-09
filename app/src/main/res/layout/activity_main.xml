@@ -15,7 +15,8 @@
         android:id="@+id/TitleString"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textSize="14pt" />
+        android:textSize="@dimen/titleTextSize"
+        android:layout_marginBottom="@dimen/titleStringBottomMargin"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -29,63 +30,15 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:id="@+id/inch_mm_select"
+        android:id="@+id/cw_ccw_select"
         android:layout_toRightOf="@+id/offsetLabel"
         android:layout_below="@+id/TitleString"
         android:layout_alignParentEnd="true"
         android:gravity="right"
         android:layout_alignParentRight="true"
-        android:layout_alignParentLeft="false">
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/inchLabel"
-            android:id="@+id/inchradiobutton"
-            android:checked="true"
-            android:textSize="@dimen/radioButtonTextSize"
-            android:onClick="do_calculate"/>
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/mmLabel"
-            android:id="@+id/mmradiobutton"
-            android:textSize="@dimen/radioButtonTextSize"
-            android:onClick="do_calculate"/>
-    </RadioGroup>
-
-
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        android:id="@+id/offset_value"
-        android:singleLine="true"
-        android:imeOptions="actionDone"
-        android:layout_below="@+id/offsetLabel"
-        android:textSize="@dimen/inputTextSize"
-        android:layout_toLeftOf="@+id/inch_mm_select"
-        android:layout_toStartOf="@+id/inch_mm_select"
-        android:hint="@string/offsetValueHint"/>
-
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_gravity="left"
-        android:id="@+id/cw_ccw_select"
-        android:layout_toRightOf="@+id/offset_value"
-        android:gravity="right"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/offset_value"
-        android:layout_below="@+id/offsetLabel"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentLeft="false">
-
+        android:layout_alignParentLeft="false"
+        android:layout_alignTop="@+id/offsetLabel"
+        android:layout_alignBottom="@+id/offsetLabel">
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,6 +57,83 @@
             android:textSize="@dimen/radioButtonTextSize"
             android:onClick="do_calculate"
             android:layout_gravity="bottom"/>
+
+    </RadioGroup>
+
+
+
+    <EditText
+        android:layout_width="@dimen/offsetLineWidth"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/offset_value"
+        android:singleLine="true"
+        android:imeOptions="actionDone"
+        android:layout_below="@+id/offsetLabel"
+        android:textSize="@dimen/inputTextSize"
+        android:hint="@string/offsetValueHint"
+        android:gravity="right"/>
+
+    <EditText
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/numerator_value"
+        android:singleLine="true"
+        android:imeOptions="actionDone"
+        android:layout_below="@id/offsetLabel"
+        android:textSize="@dimen/inputTextSize"
+        android:layout_toRightOf="@+id/offset_value"
+        android:gravity="right"/>
+
+    <Spinner
+        android:layout_width="60dp"
+        android:padding="0dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/denom_spinner"
+        android:entries="@array/denominators"
+        android:textSize="@dimen/inputTextSize"
+        android:layout_below="@+id/offsetLabel"
+        android:layout_toRightOf="@+id/numerator_value"
+        android:layout_alignBottom="@+id/numerator_value"
+        android:gravity="left"/>
+
+    <RadioGroup
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_gravity="left"
+        android:id="@+id/inch_mm_select"
+        android:layout_toRightOf="@+id/denom_spinner"
+        android:gravity="right"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/offset_value"
+        android:layout_below="@+id/offsetLabel"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="false">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/inchLabel"
+            android:id="@+id/inchradiobutton"
+            android:checked="true"
+            android:textSize="@dimen/radioButtonTextSize"
+            android:onClick="do_calculate"
+            android:layout_gravity="bottom"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mmLabel"
+            android:id="@+id/mmradiobutton"
+            android:textSize="@dimen/radioButtonTextSize"
+            android:onClick="do_calculate"
+            android:layout_gravity="bottom"/>
+
     </RadioGroup>
 
 

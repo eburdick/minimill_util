@@ -5,4 +5,7 @@
     <dimen name="radioButtonTextSize">15sp</dimen>
     <dimen name="resultTextSize">30sp</dimen>
     <dimen name="inputTextSize">20sp</dimen>
+    <dimen name="titleTextSize">35sp</dimen>
+    <dimen name="titleStringBottomMargin">10dp</dimen>
+    <dimen name="offsetLineWidth">120dp</dimen>
 </resources>
