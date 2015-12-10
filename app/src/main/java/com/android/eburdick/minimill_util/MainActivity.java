@@ -3,6 +3,9 @@ package com.android.eburdick.minimill_util;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.app.Activity;
 import android.view.View;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
@@ -63,7 +66,22 @@ public class MainActivity extends AppCompatActivity
         //
         spinner.setAdapter(denom_adapter);
 
+        class SpinnerActivity extends Activity implements OnItemSelectedListener {
 
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int pos, long id) {
+                // An item was selected. You can retrieve the selected item using
+                // parent.getItemAtPosition(pos)
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Another interface callback
+            }
+
+
+
+
+        }
 
         //Get the id of the offset_text editText widget
         //
