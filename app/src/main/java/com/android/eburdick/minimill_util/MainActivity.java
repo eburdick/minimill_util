@@ -4,8 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.EditText;
@@ -37,6 +37,34 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //
+        //Set up the denominator spinner.
+        //
+        //First, allocate a spinner object to populate from the XML files.
+        //
+        Spinner spinner = (Spinner) findViewById(R.id.denom_spinner);
+        //
+        // Create an ArrayAdapter using the string array defined in arrays.xml. This file is
+        // opened by the build because it is in the resources directory tree.  An array called
+        // denominators is defined in arrays.  Note: CharSequence is a native Java type and the
+        // <CharSequence> argument is just saying that the ArrayAdapter is dealing with an
+        // array of CharSequence elements.
+        //
+        ArrayAdapter<CharSequence> denom_adapter =
+                ArrayAdapter.createFromResource
+                        (this,R.array.denominators,android.R.layout.simple_spinner_item);
+        //
+        //set a user interface view for the adapter just created.  This will be used by the
+        //spinner for displaying the menu of choices by the spinner.
+        //
+        denom_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //
+        // apply the adapter to the spinner
+        //
+        spinner.setAdapter(denom_adapter);
+
+
+
         //Get the id of the offset_text editText widget
         //
         final EditText offset_text = (EditText) findViewById(R.id.offset_value);
@@ -44,11 +72,9 @@ public class MainActivity extends AppCompatActivity
         //Set an action listner for the offset_text widget.  This will get called when
         //the user is finished with the editor and touches the "done" button.
         //
-        offset_text.setOnEditorActionListener(new TextView.OnEditorActionListener()
-        {
+        offset_text.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
-            {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 //
                 // The only action we want to do when the user is finished with entering
                 // a number is to calculate the results, so we just call the do_calculate
