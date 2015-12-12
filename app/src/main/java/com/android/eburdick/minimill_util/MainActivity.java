@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.EditText;
+import android.widget.Toast;
+import android.util.Log;
 import java.lang.Double;
 
 /*
@@ -45,7 +47,24 @@ public class MainActivity extends AppCompatActivity
         //
         //First, allocate a spinner object to populate from the XML files.
         //
-        Spinner spinner = (Spinner) findViewById(R.id.denom_spinner);
+        Spinner denom_sel_spinner = (Spinner) findViewById(R.id.denom_spinner);
+        //
+        // create a listener to activate when a spinner item is selected
+        //
+        denom_sel_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            public void onItemSelected(AdapterView<?> arg0, View v, int position, long id)
+            {
+                //debug code to see the selection
+                Log.v("denom", String.valueOf(position));
+            }
+
+            public void onNothingSelected(AdapterView<?> arg0)
+            {
+                //debug code to indicate nothing selected
+                Log.v("denom", "nothng selected");
+            }
+        });
         //
         // Create an ArrayAdapter using the string array defined in arrays.xml. This file is
         // opened by the build because it is in the resources directory tree.  An array called
@@ -64,24 +83,8 @@ public class MainActivity extends AppCompatActivity
         //
         // apply the adapter to the spinner
         //
-        spinner.setAdapter(denom_adapter);
+        denom_sel_spinner.setAdapter(denom_adapter);
 
-        class SpinnerActivity extends Activity implements OnItemSelectedListener {
-
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int pos, long id) {
-                // An item was selected. You can retrieve the selected item using
-                // parent.getItemAtPosition(pos)
-            }
-
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Another interface callback
-            }
-
-
-
-
-        }
 
         //Get the id of the offset_text editText widget
         //
