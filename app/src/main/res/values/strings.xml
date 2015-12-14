@@ -8,5 +8,5 @@
     <string name="counterClockwiseLabel">CCW</string>
     <string name="clockwiseLabel">CW</string>
     <string name="titleString">Mini Mill Utility</string>
-    <string name="offsetValueHint">enter offset...</string>
+    <string name="offsetValueHint">Dist=</string>
 </resources>

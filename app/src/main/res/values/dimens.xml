@@ -7,5 +7,10 @@
     <dimen name="inputTextSize">20sp</dimen>
     <dimen name="titleTextSize">35sp</dimen>
     <dimen name="titleStringBottomMargin">10dp</dimen>
-    <dimen name="offsetLineWidth">120dp</dimen>
+    <dimen name="offsetLineWidth">80dp</dimen>
+    <dimen name="numerator_input_width">40dp</dimen>
+    <dimen name="denom_spinner_width">60dp</dimen>
+    <dimen name="radio_group_width">30dp</dimen>
+    <dimen name="label_text_size">30sp</dimen>
+    <dimen name="output_text_left_margin">30dp</dimen>
 </resources>
