@@ -1,5 +1,63 @@
 package com.android.eburdick.minimill_util;
+/*
+Minimill Util App
 
+Version 1: This app is designed to simplify moving the x and y axis of a milling machine to the desired
+positions, mainly for drilling.  Because many imported mini mills use a .0625 inch pitch on
+their table lead screws, setting a position that is not a multiple of 1/16 inch.  In addition,
+dealing with metric distances and turning the dials counter clockwise adds more chances for error.
+Minimill Util take the desired offset in inches or millimeters, along with the direction of travel
+(CW or CCW) and does some simple arithmetic to calculate the number of turns of the setting dials
+and the final dial reading to achieve that offset.
+
+Implementation: This is mostly user interface with one main routine for calculating and displaying
+results.  This is fed by callbacks from the user interface elements, which are called whenever an
+input value changes.
+
+Version 2: After using version 1 for a few real operations in the shop, it became clear that this
+app, though very handy, would be more useful if it could deal with multiple positions.  In the real
+world, when a hole pattern is drilled, you pick a starting point, then move from there to the first
+hole, well supported by this app, but then move from there to the next hole, and so on.  With this
+app, you need to manually deal with the relative positions of the two holes.  The next version of
+the app needs to provide some help there, either by allowing the user to enter all of the positions
+desired, or by at least making it easy to keep the most recent value and use it as a starting point
+for the next one.  Example: I want to make a motor mount hole pattern in the form of 2.5 cm square
+with a center hole.  This is five holes.  The table motion might look like this:
+    - find x and y edges and set dials to 0,0
+    - move to center hole using the app twice to calculate it. Drill the hole.
+    - move to lower left corner, using the app twice to calculate it, but also adding or
+    subtracting the x and y values for the center.  The app should support this directly by
+    keeping the current position and providing the necessary information to move to the new one.
+    - move to the lower right corner, using the app only once, because only x is changing.  Still,
+    we have to deal with manually calculating the relative offset.
+    - move to upper right maually calculating the relative offset in y.
+    - move to upper left, manually calculating the x offset.
+So there are two obvious things we would like to add:
+    -keep the last value and provide the ability to calculate the new position relative to that
+    -make a distinction between x and y values.
+What might this look like?
+    - We could provide the ability to enter the x,y positions of all of the holes as a list and
+    have the app walk us through it. But the user has generally already written down the positions
+    of the holes, or already has a concept of how to proceed, so adding in all of the values
+    creates new works.
+    - We could provide two input fields, one for x and one for y and keep the most recent of each
+    to enable user input of relative motion, or automatic conversion to relative motion.  I like
+    this better because it is closer to what I actually do with the machine.
+Features:
+    - Duplicate the input text mechanism to create one for x and one for y.
+    - Add a text field for each of these to hold the previous value. This would be updated when
+    we change the current value. In V1, this update is committed when we exit the editor.  There
+    is no specific "calculate button." The problem with this is that if you make a mistake and
+    end up entering the value more than once, then you lose the previous value.  So there should be
+    an explicit way to preserve the old value. Some alternatives...
+        - pop up prompt asking "do you want to save the previous result?"
+        - push the old values onto a small stack and display them in a spinner so they can be
+        recovered. The spinner could possibly be the storage medium for this.
+        - have a "push" button to save the value before editing it. But what happens if you
+        forget to do it?  This combined with the prompt might be good.
+        - have an explicit calculate button that saves the old value before it updates the new one,
+        thus eliminating the v1 automatic calculation.
+ */
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
