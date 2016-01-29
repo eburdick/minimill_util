@@ -19,6 +19,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- custom styles for spinner item and dropdown text -->
     <style name="spinnerItemStyle">
         <item name="android:padding">@dimen/spinner_item_padding</item>
         <item name="android:textSize">@dimen/inputTextSize</item>
