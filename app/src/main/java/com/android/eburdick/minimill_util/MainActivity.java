@@ -32,31 +32,82 @@ with a center hole.  This is five holes.  The table motion might look like this:
     we have to deal with manually calculating the relative offset.
     - move to upper right maually calculating the relative offset in y.
     - move to upper left, manually calculating the x offset.
-So there are two obvious things we would like to add:
-    -keep the last value and provide the ability to calculate the new position relative to that
-    -make a distinction between x and y values.
-What might this look like?
-    - We could provide the ability to enter the x,y positions of all of the holes as a list and
-    have the app walk us through it. But the user has generally already written down the positions
-    of the holes, or already has a concept of how to proceed, so adding in all of the values
-    creates new works.
-    - We could provide two input fields, one for x and one for y and keep the most recent of each
-    to enable user input of relative motion, or automatic conversion to relative motion.  I like
-    this better because it is closer to what I actually do with the machine.
-Features:
-    - Duplicate the input text mechanism to create one for x and one for y.
-    - Add a text field for each of these to hold the previous value. This would be updated when
-    we change the current value. In V1, this update is committed when we exit the editor.  There
-    is no specific "calculate button." The problem with this is that if you make a mistake and
-    end up entering the value more than once, then you lose the previous value.  So there should be
-    an explicit way to preserve the old value. Some alternatives...
-        - pop up prompt asking "do you want to save the previous result?"
-        - push the old values onto a small stack and display them in a spinner so they can be
-        recovered. The spinner could possibly be the storage medium for this.
-        - have a "push" button to save the value before editing it. But what happens if you
-        forget to do it?  This combined with the prompt might be good.
-        - have an explicit calculate button that saves the old value before it updates the new one,
-        thus eliminating the v1 automatic calculation.
+
+The most direct way to simplify this for the user is to allow entry of all target coordinates into
+the app and provide dial settings for each movement between positions. Starting with the V1
+version, this means the offset, currently entered by the user, is calculated from difference
+between successive positions.
+
+User interface: The V1 interface is incrementally enhanced on top of a list of coordinate pairs.
+There is a screen for each coordinate, X1, Y1, X2, Y2, etc, in that order. Each
+screen is labeled Xn or Yn and there are buttons (maybe swipe) to move forward and backward through
+the list. The user simply moves through the list entering the coordinates, and the app calculates
+the offset values and dial operations to accomplish these relative movements. The screen on which
+the user enters a new coordinate is where the new offset value and dial ops are displayed.
+
+Screen items:
+    - Row 1: Previous button | coordinate label (Xn or Yn) | Next button
+    - Row 2: User entered coordinate value (X or Y) | inch/mm selector
+    - Row 3  (offset = 0): "No Change" (Rows 4:7 blank)
+             (offset != 0): Calculated offset in inch or mm
+    - Row 4: (dial = 0): blank
+             (dial != 0): "Turn clockwise to 0.000"
+    - Row 5 (offset > 0): "Turn clockwise N turns"
+            (offset < 0): "Turn counterclockwise N turns"
+    - Row 6 (offset > 0): "Turn clockwise to VALUE"
+    - Row 6 (offset < 0): "Turn clockwise one turn"
+    - Row 7 (offset > 0): blank
+    - Row 7 (offset < 0): Turn dial clockwise to (value)
+
+User dial motion comments:
+    Many hole patterns will require motion in both directions in one or both axes. Because of lead
+    screw backlash, this can get complicated for the user if we try to finish settings in both
+    directions, so for this app, final dial settings are always clockwise.  This means the
+    program needs to compensate for backlash.  Roughly speaking, with the Little
+    Machine Shop minimill this code is initially written for, the X backlash is about 10 mils --
+    about 1/6 turn, and the Y backlash is about 20 or 30 mils, closer to half a turn. The full
+    counterclockwise turns value needs to exceed the amount of backlash. We assume no machine has
+    more than one turn of backlash in either axis and add a turn in negative moves to guarantee
+    backlash is taken up.but not add a turn. To make turns counting easier, for the user, each
+    positioning operation starts with advancing to zero with the appropriate offset added or
+    subtracted from the subsequent motion. Examples:
+
+    Table X is at 1.600" and next position is 1.9". Starting dial position is .0375. We need to move
+    .3", which is 4 turns plus .050". The motions will be:
+        - Move forward to zero.  This moves us .0625-.0375=.025 to 1.625, or 25/16"
+        - Move forward .3-.025=.275. This is 4 turns clockwise to zero, then set clockwise to .025
+
+    To reverse this motion: Table X is at 1.9" and next position is 1.6".  Starting dial position is
+    .025. We need to move -.3" which is 4 turns counterclockwise (-.25), -.050". The motions will be
+        - Move forward to zero. This moves us .0625-.025=.0375 to 1.9375 = 31/16
+        - Move bacward .3 + .0375=.3375. This is 5 turns counterclockwise to zero, then further
+        counterclockwise to .0375. We get the same result by doing 6 turns counterclockwise, then
+        clockwise to .0375, which takes care of half a turn of backlash. Note this only works
+        because our final value is larger that our expected backlash. If our final value was small,
+        say .001", then we would have to go further counterclockwise to neutralize the backlash,
+        which the user may or may not notice. Alternatively, doing 7 turns counterclockwise, then a
+        full turn clockwise to take up any backlash, followed by clockwise motion to the final value
+        is guaranteed to compensate for all backlash of less than a turn.
+
+    Conclusion for motion conventions:
+
+    The first example shows that motion in a positive direction is straightforward with no
+    backlash issues. The second example illustrates the backlash issue. Further thinking this out,
+    if we do a number of full counterclockwise turns to zero on the dial and then do our setting in
+    a clockwise direction, then unless the final setting is larger than the amount of backlash, we
+    will not succeed in taking up the backlash. The simplest solution to this is to add 2 full
+    turns to the counterclockwise count, then advance a full turn clockwise to take up the backlash,
+    tnen move clockwise to the final setting. Alternatively, we could add either 1 or 2 extra turns
+    depending on whether the final setting is enough to take up the backlash. From a human factors
+    point of view, this means the user will be doing one two different operations at the end of
+    counterclockwise settings depending on final value, which will result in more mistakes, so in
+    this app, we will add the two turns every time, which covers up to one turn of backlash.
+
+
+
+
+
+
  */
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
